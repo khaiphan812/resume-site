@@ -212,20 +212,3 @@ These are the problems found while building this pipeline and how each was fixed
 | `npm ci` fails in Test | `package-lock.json` missing or out of sync with `package.json` | Run `npm install` locally and commit `package-lock.json` |
 | Alarm stays `Insufficient data` | No data point yet | Normal right after creation. It turns `OK` after the next build or canary run |
 | No alarm email arrives | SNS subscription not confirmed | Confirm it from the email (check spam). Status must be *Confirmed* |
-
----
-
-## 6. Clean-up
-
-All AWS resources were deleted after the assignment to avoid ongoing cost:
-
-1. Canary `resume-heartbeat` (stopped, then deleted with its Lambda function and its `cw-syn-results-…` S3 bucket)
-2. Alarms `resume-site-build-failed` and `resume-site-down`
-3. SNS topic `resume-pipeline-alerts`
-4. Pipeline `resume-site-pipeline` and its artifact bucket `codepipeline-us-west-2-…`
-5. CodeBuild projects `resume-site-build` and `resume-site-test`
-6. S3 bucket `khaiphan-resume-site` (emptied first)
-7. CloudWatch log groups for both CodeBuild projects and the canary
-8. IAM service roles created for CodePipeline, CodeBuild and the canary
-
-Because of this, the live site link above no longer works. The pipeline can be rebuilt by following section 3.
