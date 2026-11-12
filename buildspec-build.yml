@@ -1,0 +1,18 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+  build:
+    commands:
+      - echo "Packaging website into dist/"
+      - mkdir -p dist
+      - cp index.html dist/
+      - cp -r css dist/
+      - ls -R dist
+
+artifacts:
+  base-directory: dist
+  files:
+    - '**/*'
